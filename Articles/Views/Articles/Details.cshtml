@@ -1,0 +1,81 @@
+﻿@model Articles.Models.Articles.ArticleViewModel
+
+@if (string.IsNullOrEmpty(Model.Exception.Message))
+{
+
+    <!--Section: Block Content-->
+    <section class="mb-5">
+
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+
+                <div id="mdb-lightbox-ui"></div>
+
+                <div class="mdb-lightbox">
+
+                    <div class="row product-gallery mx-1">
+
+                        <div class="col-12 mb-0">
+                            <figure class="view overlay rounded z-depth-1 main-img">
+                                <img  src="@string.Format("data:image/png;base64,{0}" , Convert.ToBase64String(@Model.Image))"
+                                        class="img-responsive z-depth-1" width="500" height="500">
+                                
+                            </figure>
+                            
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <h5>@Model.Title</h5>
+                <p class="pt-1">
+                    @Model.Description
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <th class="pl-0 w-25" scope="row"><strong>ტელეფონი: </strong></th>
+                                <td>@Model.Phone</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+    <!--Section: Block Content-->
+    @*<div class="container container_margin">
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <img class="img-responsive" src="@string.Format("data:image/png;base64,{0}" , Convert.ToBase64String(@Model.Image))" alt="" width="700" height="500">
+                </div>
+
+                <div class="col-md-4">
+                    <h4 class="my-4">აღწერა</h4>
+                    <p>სახელი: @Model.Title</p>
+                    <p class="text-justify" style="word-wrap: break-word;">@Model.Description</p>
+                    <h4 class="my-4">საკონტაქტო ინფორმაცია</h4>
+
+                    <p>ტელეფონი: @Model.Phone</p>
+
+                </div>
+
+            </div>
+
+        </div>*@
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Model.Exception.Message</p>
+    </div>
+}

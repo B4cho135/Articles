@@ -1,0 +1,61 @@
+﻿@model Articles.Models.Articles.ArticlesListViewModel
+
+@{
+    ViewData["Title"] = "მთავარი გვერდი";
+}
+
+
+<form asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-md-4" style="margin-left:15px;">
+            <div class="row">
+
+                <div class="input-group">
+                    <input type="text" asp-for="@Model.ArticleSearchQuery.Title" placeholder="მოძებნე განცხადება" class="form-control">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary" style="margin-left:20px">ძებნა</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="border-top my-3"></div>
+
+
+<div class="container container_margin">
+
+    <div class="row">
+        @foreach (var article in Model.Articles)
+        {
+            <div class="col-md-4 product-grid" style="margin-top:30px;">
+                <div class="card" style="width: 18rem;">
+                    <div class="text-center bg-light">
+                        <img class="card-img-top" src="@string.Format("data:image/png;base64,{0}" , Convert.ToBase64String(article.Image))">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@article.Title</h5>
+                        <a asp-controller="Articles" asp-action="Details" asp-route-Id="@article.Id">დეტალები</a>
+                        <a asp-controller="Articles" asp-action="Update" asp-route-Id="@article.Id">განახლება</a>
+                        <a asp-controller="Articles" asp-action="Delete" asp-route-Id="@article.Id">წაშლა</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    @if (Model.Articles.Count == 0 && string.IsNullOrEmpty(Model.Error.Message))
+    {
+        <p>განცხადებები ვერ მოიძებნა</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Error.Message))
+    {
+        <div class="alert alert-danger" role="alert">
+            <p>@Model.Error.Message</p>
+        </div>
+    }
+
+</div>
